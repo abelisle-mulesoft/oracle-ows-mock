@@ -1,0 +1,9 @@
+# Default server.port is 8080
+server:
+#  port: 8081
+  error:
+    include-message: always
+
+#Default cfx.path is: /services
+cxf:
+  path: /OWS_WS_51

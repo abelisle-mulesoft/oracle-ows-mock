@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en-US"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://webservices.micros.com/og/4.3/Core/"
+    xmlns:core="http://webservices.micros.com/og/4.3/Core/"
+    version="4.3">
+
+    <xs:element name="OGHeader" type="core:OGHeaderType">
+        <xs:annotation>
+            <xs:documentation>
+                The header values as sent in a SOAP message for all request to the web service.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:complexType name="EndPointListType">
+        <xs:sequence>
+            <xs:element name="EndPoint" type="core:EndPointType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EndPointType">
+        <xs:complexContent>
+            <xs:extension base="core:SystemIDType">
+                <xs:attribute name="systemType" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="OGHeaderType">
+        <xs:sequence>
+            <xs:element name="Origin" type="core:EndPointType"/>
+            <xs:element name="Destination" type="core:EndPointType"/>
+            <xs:element name="Intermediaries" type="core:EndPointListType" minOccurs="0"/>
+            <xs:element name="Authentication" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Authentication element that is used to identify who the caller is and if they are
+                        allowed to call the web service. This element is optional as it is only used when
+                        the web service is running in secure mode.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="UserCredentials">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="UserName" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                User Name of the person requesting to use the application.
+                                                They can make a booking on behalf of any one else.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="UserPassword" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Password that is used to authenticate the user and is as
+                                                provided by Opera.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="Domain" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Domain identifies the user as to what Authentication platform
+                                                they belong to. The default is OPERA and has been added to
+                                                allow for the posibility of Federated Authentication at a
+                                                later stage.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="SecurityId" type="xs:string" minOccurs="0"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Licence" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Key" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                The key will be in the form of a GUID and is used to check if
+                                                the user calling the web service is really authorised to do so
+                                                or not. The key is issued by Opera application.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:pattern value="\{[\dA-Fa-f]{8}\-[\dA-Fa-f]{4}\-[\dA-Fa-f]{4}\-[\dA-Fa-f]{4}\-[\dA-Fa-f]{12}\}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="transactionID" type="xs:string"/>
+        <xs:attribute name="authToken" type="xs:string"/>
+        <xs:attribute name="timeStamp" type="xs:dateTime"/>
+        <xs:attribute name="primaryLangID" use="optional" default="E">
+            <xs:annotation>
+                <xs:documentation>
+                    Identifes the primary language preference for the message. The human language is
+                    identified by ISO 639 codes.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string"/>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="channelValidation" type="xs:boolean" use="optional" default="true"/>
+        <xs:attribute name="terminalID" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="SystemIDType">
+        <xs:attribute name="entityID" type="xs:string" use="required"/>
+        <xs:attribute name="organizationID" type="xs:string"/>
+    </xs:complexType>
+</xs:schema>

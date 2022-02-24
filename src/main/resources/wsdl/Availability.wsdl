@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions 
+    name="AvailabilityMock"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:avail="http://webservices.micros.com/og/4.3/Availability/"
+    xmlns:core="http://webservices.micros.com/og/4.3/Core/"
+    targetNamespace="http://webservices.micros.com/ows/5.1/Availability"
+    xmlns:ws="http://webservices.micros.com/ows/5.1/Availability">
+
+    <wsdl:types>
+        <xs:schema>
+            <xs:import namespace="http://webservices.micros.com/og/4.3/Availability/"
+                schemaLocation="xsd/Availability.xsd"/>
+            <xs:import namespace="http://webservices.micros.com/og/4.3/Core/"
+                schemaLocation="xsd/OGHeader.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="OGHeader">
+        <wsdl:part name="OGHeader" element="core:OGHeader"/>
+    </wsdl:message>
+    <wsdl:message name="availabilityRequest">
+        <wsdl:part name="input" element="avail:AvailabilityRequest"/>
+    </wsdl:message>
+    <wsdl:message name="availabilityResponse">
+        <wsdl:part name="output" element="avail:AvailabilityResponse"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="AvailabilityMockInterface">
+        <wsdl:operation name="Availability">
+            <wsdl:input message="ws:availabilityRequest"/>
+            <wsdl:output message="ws:availabilityResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="AvailabilityMockSOAPHTTPBinding" type="ws:AvailabilityMockInterface">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Availability">
+            <soap:operation/>
+            <wsdl:input>
+                <soap:header message="ws:OGHeader" part="OGHeader" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="ws:OGHeader" part="OGHeader" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="Availability">
+        <wsdl:port name="DevPort" binding="ws:AvailabilityMockSOAPHTTPBinding">
+            <soap:address location="http://dev.example.com:4402/OWS_WS_51/Availability.asmx"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
