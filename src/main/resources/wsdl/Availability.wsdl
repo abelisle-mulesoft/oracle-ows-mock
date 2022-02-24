@@ -18,14 +18,13 @@
         </xs:schema>
     </wsdl:types>
     
-    <wsdl:message name="OGHeader">
-        <wsdl:part name="OGHeader" element="core:OGHeader"/>
-    </wsdl:message>
     <wsdl:message name="availabilityRequest">
-        <wsdl:part name="input" element="avail:AvailabilityRequest"/>
+        <wsdl:part name="header" element="core:OGHeader"/>
+        <wsdl:part name="body" element="avail:AvailabilityRequest"/>
     </wsdl:message>
     <wsdl:message name="availabilityResponse">
-        <wsdl:part name="output" element="avail:AvailabilityResponse"/>
+        <wsdl:part name="header" element="core:OGHeader"/>
+        <wsdl:part name="body" element="avail:AvailabilityResponse"/>
     </wsdl:message>
     
     <wsdl:portType name="AvailabilityMockInterface">
@@ -40,12 +39,12 @@
         <wsdl:operation name="Availability">
             <soap:operation/>
             <wsdl:input>
-                <soap:header message="ws:OGHeader" part="OGHeader" use="literal"/>
-                <soap:body use="literal"/>
+                <soap:header message="ws:availabilityRequest" part="header" use="literal"/>
+                <soap:body parts="body" use="literal"/>
             </wsdl:input>
             <wsdl:output>
-                <soap:header message="ws:OGHeader" part="OGHeader" use="literal"/>
-                <soap:body use="literal"/>
+                <soap:header message="ws:availabilityResponse" part="header" use="literal"/>
+                <soap:body parts="body" use="literal"/>
             </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
