@@ -1,4 +1,4 @@
-# AWS KMS Client Project
+# Oracle OWS Mocking Web Service
 
 This repository contains a mocking web service for simulating integrations with Oracle Hospitality's OPERA 5 Property Management System. 
 
