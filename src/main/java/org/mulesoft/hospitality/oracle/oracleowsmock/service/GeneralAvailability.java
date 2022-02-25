@@ -8,11 +8,21 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import javax.xml.transform.stream.StreamSource;
 
+/**
+ * Service backend/implementation class for handling all requests related to General Availability.
+ *
+ * @author Alan Belisle
+ */
 public class GeneralAvailability {
 
     // Default/hardcoded XML response for the General Availability request.
     private static final String BEST_AVAILABLE_RESPONSE_FILENAME = "GeneralAvailabilityResponseBestAvailable.xml";
 
+    /**
+     * This method provides functionality for simulating a General Availability request.
+     * @param availabilityRequest Valid XML document as defined by the AvailabilityRequest element in Availability.xsd
+     * @return The default/hardcoded XML response for the General Availability request.
+     */
     public AvailabilityResponseType getAvailability(AvailabilityRequestType availabilityRequest) {
         AvailabilityResponseType availabilityResponse = new AvailabilityResponseType();
 
@@ -32,6 +42,7 @@ public class GeneralAvailability {
             availabilityResponse = unmarshaller.unmarshal(new StreamSource(file), AvailabilityResponseType.class).getValue();
         } catch (Exception e) {
             e.printStackTrace();
+            //
         }
 
         return availabilityResponse;
