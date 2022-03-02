@@ -44,11 +44,14 @@ The build creates a runnable JAR.
        ```
     ![Running project screenshot](img/readme-running-project.png)  
 
-5. Optionally, open http://localhost:8081/OWS_WS_51 to view all the endpoints available.
+5. Optionally, open http://localhost:8001/OWS_WS_51 to view all the endpoints available.
+
 ![Available endpoints screenshot](img/readme-available-endpoints.png)
 
-6. Optionally, open http://localhost:8080/OWS_WS_51/Availability?wsdl to view the WSDL.
+6. Optionally, open http://localhost:8001/OWS_WS_51/Availability?wsdl to view the WSDL.
+
 ![WSDL screenshot](img/readme-wsdl.png)
+
 
 ## Sample Messages
 Although this web service is a mockup, the current revision still expects a valid XML request. The following sample request message works well. 
@@ -210,6 +213,7 @@ In the current revision, we hardcoded the response as follow:
 </avail:AvailabilityResponse>
 ```
 > :memo: You can find and optionally modify the SOAP body of the default response by editing the file [src/main/resources/messages/GeneralAvailabilityResponseBestAvailable.xml](src/main/resources/messages/GeneralAvailabilityResponseBestAvailable.xml). 
+
 
 ## Reporting Issues
 

@@ -2,7 +2,7 @@
 
 # Default server.port is 8080
 server:
-#  port: 8001
+  port: 8001
   error:
     include-message: always
 
